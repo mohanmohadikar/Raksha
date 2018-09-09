@@ -3,6 +3,7 @@ package com.example.mohanmmohadikar.raksha;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +13,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    DatabaseHelper myDb;
 
     private TextView tv1;
     private Button b2,b1, cl;
@@ -49,12 +53,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent i = getIntent();
-        num1 = i.getStringExtra("k1");
-        num2 = i.getStringExtra("k2");
-        num3 = i.getStringExtra("k3");
-        num4 = i.getStringExtra("k4");
-        num5 = i.getStringExtra("k5");
+
+        myDb = new DatabaseHelper(this);
+
+        myDb.getData(num1,num2,num3,num4,num5);
 
 
 
@@ -66,18 +68,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         cl.setOnClickListener(v->{
-            Intent in = new Intent(MainActivity.this, ListContact.class);
-
-            //Intent i = new Intent(Contacts.this, ContactList.class);
 
 
-            in.putExtra("key1", num1);
-            in.putExtra("key2", num2);
-            in.putExtra("key3", num3);
-            in.putExtra("key4", num4);
-            in.putExtra("key5", num5);
 
-            startActivity(in);
+
+                    Cursor res = myDb.getAllData();
+                    if(res.getCount() == 0) {
+                        // show message
+                        showMessage("Error","Nothing found");
+                        return;
+                    }
+
+                    StringBuffer buffer = new StringBuffer();
+                    while (res.moveToNext()) {
+
+                        buffer.append("PERSON 1 :"+ res.getString(1)+"\n\n");
+                        buffer.append("PERSON 2 :"+ res.getString(2)+"\n\n");
+                        buffer.append("PERSON 3 :"+ res.getString(3)+"\n\n");
+                        buffer.append("PERSON 4 :"+ res.getString(4)+"\n\n");
+                        buffer.append("PERSON 5 :"+ res.getString(5)+"\n\n");
+                    }
+
+                    // Show all data
+                    showMessage("CONTACTS",buffer.toString());
+
+
         });
 
 
@@ -139,13 +154,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
     private void makeCall() {
         if(num1.trim().length()>2){
             if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.CALL_PHONE)
                     != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MyPermission);
             }else{
-                String dial = "tel:"+num;
+                String dial = "tel:"+num1;
                 startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
             }
         }else{

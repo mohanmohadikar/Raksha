@@ -26,8 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Contacts" />
-        <activity android:name=".ContactList" />
-        <activity android:name=".ListContact"></activity>
     </application>
 
 </manifest>
