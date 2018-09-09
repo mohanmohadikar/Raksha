@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Raksha</string>
+    <string name="alert">Alert</string>
+    <string name="enter_contact_details_of_the_person">Enter contact details of the person</string>
+    <string name="enter_contact_number_of_first_person">Enter contact number of first person</string>
+    <string name="enter_contact_number_of_second_person">Enter contact number of second person</string>
+    <string name="enter_contact_number_of_third_person">Enter contact number of third person</string>
+    <string name="enter_contact_number_of_fourth_person">Enter contact number of fourth person</string>
+    <string name="enter_contact_number_of_fifth_person">Enter contact number of fifth person</string>
+    <string name="contact_police">Contact Police</string>
+    <string name="update_contact">update contact</string>
+    <string name="save">save</string>
 </resources>
