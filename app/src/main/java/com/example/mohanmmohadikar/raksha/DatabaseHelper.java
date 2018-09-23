@@ -7,13 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by mohanmmohadikar on 9/10/18.
+ * Created by mohanmmohadikar on 9/23/18.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+
     public static final String DATABASE_NAME = "Contacts.db";
     public static final String TABLE_NAME = "Contact_table";
-    public static final String COL_1 = "ID";
+   // public static final String COL_1 = "ID";
     public static final String COL_2 = "NUMBER1";
     public static final String COL_3 = "NUMBER2";
     public static final String COL_4 = "NUMBER3";
@@ -79,19 +81,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-/*
 
-    public void getData( String a1,String a2,String a3,String a4,String a5) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        a1 = contentValues.put(COL_2,number1);
-        a2 = contentValues.put(COL_3,number2);
-        a3 = contentValues.put(COL_4,number3);
-        a4 = contentValues.put(COL_5,number4);
-        a5 = contentValues.put(COL_6,number5);
-
-
-    }
-*/
-
-    }
+}

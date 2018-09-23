@@ -56,47 +56,42 @@ public class MainActivity extends AppCompatActivity {
 
         myDb = new DatabaseHelper(this);
 
-        myDb.getData(num1,num2,num3,num4,num5);
 
 
+        tv1 = (TextView) findViewById(R.id.tv1);
+        b1 = (Button) findViewById(R.id.b1);
+        b2 = (Button) findViewById(R.id.b2);
+        cl = (Button) findViewById(R.id.cl);
 
 
-        tv1 = (TextView)findViewById(R.id.tv1);
-        b1 = (Button)findViewById(R.id.b1);
-        b2 = (Button)findViewById(R.id.b2);
-        cl = (Button)findViewById(R.id.cl);
+        cl.setOnClickListener(v -> {
 
 
-        cl.setOnClickListener(v->{
+            Cursor res = myDb.getAllData();
+            if (res.getCount() == 0) {
+                // show message
+                showMessage("Error", "Nothing found");
+                return;
+            }
 
+            StringBuffer buffer = new StringBuffer();
+            while (res.moveToNext()) {
 
+                buffer.append("PERSON 1 :" + res.getString(1) + "\n\n");
+                buffer.append("PERSON 2 :" + res.getString(2) + "\n\n");
+                buffer.append("PERSON 3 :" + res.getString(3) + "\n\n");
+                buffer.append("PERSON 4 :" + res.getString(4) + "\n\n");
+                buffer.append("PERSON 5 :" + res.getString(5) + "\n\n");
+            }
 
-
-                    Cursor res = myDb.getAllData();
-                    if(res.getCount() == 0) {
-                        // show message
-                        showMessage("Error","Nothing found");
-                        return;
-                    }
-
-                    StringBuffer buffer = new StringBuffer();
-                    while (res.moveToNext()) {
-
-                        buffer.append("PERSON 1 :"+ res.getString(1)+"\n\n");
-                        buffer.append("PERSON 2 :"+ res.getString(2)+"\n\n");
-                        buffer.append("PERSON 3 :"+ res.getString(3)+"\n\n");
-                        buffer.append("PERSON 4 :"+ res.getString(4)+"\n\n");
-                        buffer.append("PERSON 5 :"+ res.getString(5)+"\n\n");
-                    }
-
-                    // Show all data
-                    showMessage("CONTACTS",buffer.toString());
+            // Show all data
+            showMessage("CONTACTS", buffer.toString());
 
 
         });
 
 
-        b1.setOnClickListener(v->{
+        b1.setOnClickListener(v -> {
 
             Intent in = new Intent(this, Contacts.class);
             startActivity(in);
@@ -105,53 +100,57 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        b2.setOnClickListener(v->{
+        b2.setOnClickListener(v -> {
 
             makeCall();
 
         });
 
 
+        Cursor c1 = myDb.getAllData();
+        c1.moveToFirst();
+        num1 = c1.getString(1);
+        num2 = c1.getString(2);
+        num3 = c1.getString(3);
+        num4 = c1.getString(4);
+        num5 = c1.getString(5);
+
+
         tv1.setOnClickListener(v -> {
 
 
-
-            if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.SEND_SMS)
-                    != PackageManager.PERMISSION_GRANTED){
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, MyPermission);
-            }else{
+            } else {
                 getLocation(v);
                 LOCATE = LATTI + " " + LONGI;
                 SmsManager sms = SmsManager.getDefault();
 
-                if(num1!=null&&num1!="Contact number not updated"){
-                    sms.sendTextMessage(num1, null, message , null, null);
+                if (num1 != null && num1 != "Contact number not updated") {
+                    sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                 }
-                if(num2!=null&&num2!="Contact number not updated"){
-                    sms.sendTextMessage(num2, null, message , null, null);
+                if (num2 != null && num2 != "Contact number not updated") {
+                    sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                 }
-                if(num3!=null&&num3!="Contact number not updated"){
-                    sms.sendTextMessage(num3, null, message , null, null);
+                if (num3 != null && num3 != "Contact number not updated") {
+                    sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                 }
-                if(num4!=null&&num4!="Contact number not updated"){
-                    sms.sendTextMessage(num4, null, message , null, null);
+                if (num4 != null && num4 != "Contact number not updated") {
+                    sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                 }
-                if(num5!=null&&num5!="Contact number not updated"){
-                    sms.sendTextMessage(num5, null, message , null, null);
+                if (num5 != null && num5 != "Contact number not updated") {
+                    sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                 }
-
-
-
-
-
 
 
                 Toast.makeText(MainActivity.this, "Success !", Toast.LENGTH_SHORT).show();
             }
 
 
-
         });
+
+
     }
 
     public void showMessage(String title,String Message){
