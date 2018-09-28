@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -37,23 +38,26 @@ public class Contacts extends AppCompatActivity {
 
 
 
-        b1.setOnClickListener(v->{
+        UpdateData();
 
-            String id="1";
-            boolean isUpdate = myDb.updateData(id,l1.getEditText().getText().toString(),
-                    l2.getEditText().getText().toString(),
-                    l3.getEditText().getText().toString(),
-                    l4.getEditText().getText().toString(),
-                    l5.getEditText().getText().toString()
-            );
-            if(isUpdate == true) {
-                Toast.makeText(Contacts.this, "Data Update", Toast.LENGTH_LONG).show();
-            }
-            else {
-                Toast.makeText(Contacts.this, "Data not Updated", Toast.LENGTH_LONG).show();
-            }
+    }
 
-        });
-
+    private void UpdateData() {
+        b1.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isUpdate = myDb.updateData("1",l1.getEditText().getText().toString(),
+                                l2.getEditText().getText().toString(),
+                                l3.getEditText().getText().toString(),
+                                l4.getEditText().getText().toString(),
+                                l5.getEditText().getText().toString());
+                        if(isUpdate == true)
+                            Toast.makeText(Contacts.this,"Data Update",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(Contacts.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 }

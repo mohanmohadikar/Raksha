@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Contacts.db";
     public static final String TABLE_NAME = "Contact_table";
-   // public static final String COL_1 = "ID";
+    public static final String COL_1 = "ID";
     public static final String COL_2 = "NUMBER1";
     public static final String COL_3 = "NUMBER2";
     public static final String COL_4 = "NUMBER3";
@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updateData(String id,String number1,String number2,String number3,String number4,String number5) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,id);
         contentValues.put(COL_2,number1);
         contentValues.put(COL_3,number2);
         contentValues.put(COL_4,number3);

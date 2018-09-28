@@ -73,16 +73,26 @@ public class MainActivity extends AppCompatActivity {
                 showMessage("Error", "Nothing found");
                 return;
             }
+            else{
+
+                res.moveToFirst();
+
+                num1 = res.getString(1);
+                num2 = res.getString(2);
+                num3 = res.getString(3);
+                num4 = res.getString(4);
+                num5 = res.getString(5);
+            }
 
             StringBuffer buffer = new StringBuffer();
-            while (res.moveToNext()) {
+            do {
 
                 buffer.append("PERSON 1 :" + res.getString(1) + "\n\n");
                 buffer.append("PERSON 2 :" + res.getString(2) + "\n\n");
                 buffer.append("PERSON 3 :" + res.getString(3) + "\n\n");
                 buffer.append("PERSON 4 :" + res.getString(4) + "\n\n");
                 buffer.append("PERSON 5 :" + res.getString(5) + "\n\n");
-            }
+            }while (res.moveToNext());
 
             // Show all data
             showMessage("CONTACTS", buffer.toString());
@@ -107,13 +117,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Cursor c1 = myDb.getAllData();
-        c1.moveToFirst();
-        num1 = c1.getString(1);
-        num2 = c1.getString(2);
-        num3 = c1.getString(3);
-        num4 = c1.getString(4);
-        num5 = c1.getString(5);
+
+
+
+
+
+
 
 
         tv1.setOnClickListener(v -> {
@@ -127,24 +136,37 @@ public class MainActivity extends AppCompatActivity {
                 LOCATE = LATTI + " " + LONGI;
                 SmsManager sms = SmsManager.getDefault();
 
-                if (num1 != null && num1 != "Contact number not updated") {
-                    sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                if(num1==null&&num2==null&&num3==null&&num4==null&&num5==null){
+
+                    Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                 }
-                if (num2 != null && num2 != "Contact number not updated") {
-                    sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
-                }
-                if (num3 != null && num3 != "Contact number not updated") {
-                    sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
-                }
-                if (num4 != null && num4 != "Contact number not updated") {
-                    sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
-                }
-                if (num5 != null && num5 != "Contact number not updated") {
-                    sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                else {
+
+
+                    if (num1 != null && num1 != "Contact number not updated") {
+                        sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                    }
+                    if (num2 != null && num2 != "Contact number not updated") {
+                        sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                    }
+                    if (num3 != null && num3 != "Contact number not updated") {
+                        sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                    }
+                    if (num4 != null && num4 != "Contact number not updated") {
+                        sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                    }
+                    if (num5 != null && num5 != "Contact number not updated") {
+                        sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                    }
+                    Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+
                 }
 
 
-                Toast.makeText(MainActivity.this, "Success !", Toast.LENGTH_SHORT).show();
+
+
+
+
             }
 
 
@@ -162,12 +184,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makeCall() {
-        if(num1.trim().length()>2){
+        if(num.trim().length()>2){
             if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.CALL_PHONE)
                     != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MyPermission);
             }else{
-                String dial = "tel:"+num1;
+                String dial = "tel:"+num;
                 startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
             }
         }else{
