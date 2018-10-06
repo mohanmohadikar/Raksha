@@ -3,7 +3,7 @@
  */
 
 
-package com.example.mohanmmohadikar.raksha;
+package com.example.mohanmohadikar.raksha;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 

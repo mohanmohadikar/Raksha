@@ -1,4 +1,4 @@
-package com.example.mohanmmohadikar.raksha;
+package com.example.mohanmohadikar.raksha;
 
 import org.junit.Test;
 

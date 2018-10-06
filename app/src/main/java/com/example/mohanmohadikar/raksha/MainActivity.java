@@ -1,37 +1,35 @@
-package com.example.mohanmmohadikar.raksha;
+package com.example.mohanmohadikar.raksha;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.net.Uri;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
 
-    private TextView tv1;
-    private Button b2,b1, cl;
+
+    private Button call,update, cl,alert;
+
 
     private String message = "this is testing ";
     private String num = "9545319111";
@@ -41,27 +39,33 @@ public class MainActivity extends AppCompatActivity {
     double latti;
     double longi;
 
-    private LocationManager locationManager;
-    private LocationListener locationListener;
     private GpsTracker gpsTracker;
 
     int MyPermission = 1;
-    int REQUEST_LOCATION = 1;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ImageView mImageview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView)findViewById(R.id.navigationview);
+
 
         myDb = new DatabaseHelper(this);
 
 
 
-        tv1 = (TextView) findViewById(R.id.tv1);
-        b1 = (Button) findViewById(R.id.b1);
-        b2 = (Button) findViewById(R.id.b2);
+        alert = (Button) findViewById(R.id.alert);
+        update = (Button) findViewById(R.id.update);
+        call = (Button) findViewById(R.id.call);
         cl = (Button) findViewById(R.id.cl);
+        mImageview = (ImageView) findViewById(R.id.imageView);
 
 
         cl.setOnClickListener(v -> {
@@ -87,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
             StringBuffer buffer = new StringBuffer();
             do {
 
-                buffer.append("PERSON 1 :" + res.getString(1) + "\n\n");
-                buffer.append("PERSON 2 :" + res.getString(2) + "\n\n");
-                buffer.append("PERSON 3 :" + res.getString(3) + "\n\n");
-                buffer.append("PERSON 4 :" + res.getString(4) + "\n\n");
-                buffer.append("PERSON 5 :" + res.getString(5) + "\n\n");
+                buffer.append("PERSON 1 :" +"\n\t\t"+ res.getString(1) + "\n\n");
+                buffer.append("PERSON 2 :" +"\n\t\t"+ res.getString(2) + "\n\n");
+                buffer.append("PERSON 3 :" +"\n\t\t"+ res.getString(3) + "\n\n");
+                buffer.append("PERSON 4 :" +"\n\t\t"+ res.getString(4) + "\n\n");
+                buffer.append("PERSON 5 :" +"\n\t\t"+ res.getString(5) + "\n\n");
             }while (res.moveToNext());
 
             // Show all data
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        b1.setOnClickListener(v -> {
+        update.setOnClickListener(v -> {
 
             Intent in = new Intent(this, Contacts.class);
             startActivity(in);
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        b2.setOnClickListener(v -> {
+        call.setOnClickListener(v -> {
 
             makeCall();
 
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        tv1.setOnClickListener(v -> {
+        alert.setOnClickListener(v -> {
 
 
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 LOCATE = LATTI + " " + LONGI;
                 SmsManager sms = SmsManager.getDefault();
 
-                if(num1==null&&num2==null&&num3==null&&num4==null&&num5==null){
+                if(isEmptyString(num1) && isEmptyString(num2) && isEmptyString(num3) && isEmptyString(num4) && isEmptyString(num5)){
 
                     Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                 }
@@ -158,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
                     if (num5 != null && num5 != "Contact number not updated") {
                         sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
                     }
+
+
                     Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
 
                 }
@@ -170,6 +176,50 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+        });
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.use:
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.stories:
+                        item.setChecked(true);
+                        Intent i2 = new Intent(MainActivity.this, Stories.class);
+                        startActivity(i2);
+                        drawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.safety:
+                        item.setChecked(true);
+                        Intent i3 = new Intent(MainActivity.this, Safety.class);
+                        startActivity(i3);
+                        drawerLayout.closeDrawers();
+                        return true;
+
+                }
+
+
+
+
+
+                return false;
+            }
+        });
+
+        mImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                drawerLayout.openDrawer(GravityCompat.START);
+
+            }
         });
 
 
@@ -211,6 +261,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static boolean isEmptyString(String text) {
+        return (text == null || text.trim().equals("null") || text.trim()
+                .length() <= 0);
+    }
+
+    public void displayMessage(String Message){
+        Toast.makeText(MainActivity.this,Message,Toast.LENGTH_LONG).show();
+    }
 
 
 

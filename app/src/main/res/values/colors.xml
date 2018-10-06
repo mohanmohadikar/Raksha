@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF4081</color>
-    <color name="colorPrimaryDark">#b24a4b50</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="cl">#1a67ef</color>
+    <color name="update">#a8dadc</color>
+    <color name="call">#3451a3</color>
+    <color name="alert">#ce092143</color>
+    <color name="scream">#011025</color>
 </resources>

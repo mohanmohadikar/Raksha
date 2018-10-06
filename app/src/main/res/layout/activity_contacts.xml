@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="40dp"
-    tools:context="com.example.mohanmmohadikar.raksha.Contacts">
+    tools:context="com.example.mohanmohadikar.raksha.Contacts">
 
 
     <TextView
@@ -101,3 +101,4 @@
 
 
 </LinearLayout>
+

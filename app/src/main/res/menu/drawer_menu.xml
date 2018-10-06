@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/use"
+            android:icon="@drawable/getstart"
+            android:title="Getting started with this app"/>
+        <item
+            android:id="@+id/stories"
+            android:icon="@drawable/positive"
+            android:title="Positive stories"/>
+        <item
+            android:id="@+id/safety"
+            android:icon="@drawable/safety"
+            android:title="Safety tips"/>
+
+
+    </group>
+
+</menu>

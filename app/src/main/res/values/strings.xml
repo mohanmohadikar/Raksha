@@ -8,6 +8,8 @@
     <string name="enter_contact_number_of_fourth_person">Enter contact number of fourth person</string>
     <string name="enter_contact_number_of_fifth_person">Enter contact number of fifth person</string>
     <string name="contact_police">Contact Police</string>
-    <string name="update_contact">update contact</string>
-    <string name="save">save</string>
+    <string name="update_contact">Update Contact</string>
+    <string name="save">Save</string>
+    <string name="scream">Scream</string>
+    <string name="contact_list">Contact list</string>
 </resources>
