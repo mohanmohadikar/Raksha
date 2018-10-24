@@ -6,7 +6,7 @@
                                         android:layout_height="match_parent"
                                         android:id="@+id/drawer_layout"
                                         android:fitsSystemWindows="true"
-                                        android:background="@drawable/gradient"
+                                        android:background="@drawable/womanalone1"
                                         tools:context="com.example.mohanmohadikar.raksha.MainActivity">
 
 
@@ -22,67 +22,50 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/test"
                 android:id="@+id/imageView"/>
-        <Button
-                android:id="@+id/cl"
-                android:text="@string/contact_list"
+
+
+        <TextView
+                android:text="@string/main1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#dd3c68"
-                android:textSize="25sp"
+                android:textColor="#ffffff"
+                android:textSize="35sp"
+                android:layout_marginTop="50dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="180dp"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:background="@drawable/cl"/>
-
-
-
-
-        <Button
-                android:id="@+id/update"
-                android:text="@string/update_contact"
+                android:id="@+id/textView"/>
+        <TextView
+                android:text="@string/main2"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#da356b"
-                android:textSize="25sp"
+                android:textColor="#ffffff"
+                android:textSize="35sp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:background="@drawable/update" />
-
-
-        <Button
-                android:id="@+id/call"
-
-                android:text="@string/contact_police"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView3"/>
+        <TextView
+                android:text="@string/main3"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#d82f6f"
-                android:textSize="25sp"
+                android:textColor="#ffffff"
+                android:textSize="35sp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:background="@drawable/call"
-        />
-
-
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView4"/>
         <Button
                 android:id="@+id/alert"
 
-                android:text="@string/alert"
+                android:text="@string/i_m_in_danger"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#d52b72"
+                android:textColor="#ffffff"
                 android:textSize="25sp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="100dp"
                 android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:textStyle="bold"
@@ -95,7 +78,7 @@
                 android:text="@string/scream"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#d32577"
+                android:textColor="@color/screambutt"
                 android:textSize="25sp"
                 android:layout_gravity="center"
                 android:layout_width="180dp"

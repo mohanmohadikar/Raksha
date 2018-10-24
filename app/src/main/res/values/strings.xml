@@ -13,4 +13,8 @@
     <string name="scream">Scream</string>
     <string name="contact_list">Contact list</string>
     <string name="personimg">personimg</string>
+    <string name="i_m_in_danger">I\'m in danger</string>
+    <string name="main1">Are you in trouble?</string>
+    <string name="main2">Are you being followed?</string>
+    <string name="main3">eve teased? harassed?</string>
 </resources>

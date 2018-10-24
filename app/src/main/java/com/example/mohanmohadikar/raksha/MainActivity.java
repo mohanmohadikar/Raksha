@@ -62,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         alert = (Button) findViewById(R.id.alert);
-        update = (Button) findViewById(R.id.update);
-        call = (Button) findViewById(R.id.call);
-        cl = (Button) findViewById(R.id.cl);
+      //  update = (Button) findViewById(R.id.update);
+       // call = (Button) findViewById(R.id.call);
+      //  cl = (Button) findViewById(R.id.cl);
         mImageview = (ImageView) findViewById(R.id.imageView);
 
+
+/*
 
         cl.setOnClickListener(v -> {
 
@@ -102,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
             showMessage("CONTACTS", buffer.toString());
 
 
-        });
-
+        });*/
+/*
 
         update.setOnClickListener(v -> {
 
@@ -111,15 +113,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(in);
 
 
-        });
+        });*/
 
-
+/*
         call.setOnClickListener(v -> {
 
             makeCall();
 
         });
-
+*/
 
 
 
