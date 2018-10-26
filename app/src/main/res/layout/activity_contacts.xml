@@ -93,9 +93,16 @@
 
     <Button
         android:id="@+id/update"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
+        android:fontFamily="cursive"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content"
-        android:text="@string/save"/>
+        android:background="@drawable/cl"
+        android:text="@string/savecon"/>
 
 
 

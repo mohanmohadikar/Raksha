@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF4081</color>
+    <color name="colorPrimary">#fc0255</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#fc0255</color>
     <color name="cl">#1a67ef</color>
     <color name="update">#a8dadc</color>
     <color name="call">#3451a3</color>
     <color name="alert">#ce092143</color>
     <color name="scream">#011025</color>
     <color name="screambutt">#fa8602</color>
+    <color name="rgreen">#43a43f</color>
+
 </resources>

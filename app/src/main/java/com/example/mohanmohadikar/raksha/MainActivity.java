@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -27,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
 
+    MediaPlayer myaudio;
 
-    private Button call,update, cl,alert;
+
+    private Button stop,scream, cl,alert;
 
 
     private String message = "this is testing ";
@@ -62,10 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         alert = (Button) findViewById(R.id.alert);
-      //  update = (Button) findViewById(R.id.update);
-       // call = (Button) findViewById(R.id.call);
-      //  cl = (Button) findViewById(R.id.cl);
+        stop = (Button) findViewById(R.id.stop);
+        scream = (Button) findViewById(R.id.scream);
         mImageview = (ImageView) findViewById(R.id.imageView);
+
+
+        myaudio = MediaPlayer.create(MainActivity.this, R.raw.anushree);
 
 
 /*
@@ -105,28 +110,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         });*/
-/*
-
-        update.setOnClickListener(v -> {
-
-            Intent in = new Intent(this, Contacts.class);
-            startActivity(in);
 
 
-        });*/
 
-/*
-        call.setOnClickListener(v -> {
 
-            makeCall();
+
+
+
+
+        scream.setOnClickListener(v->{
+
+
+            myaudio.setLooping(true);
+            myaudio.start();
+            scream.setVisibility(v.INVISIBLE);
+            stop.setVisibility(v.VISIBLE);
+        });
+
+        stop.setOnClickListener(v->{
+
+
+            myaudio.stop();
+            stop.setVisibility(v.INVISIBLE);
+            scream.setVisibility(v.VISIBLE);
 
         });
-*/
-
-
-
-
-
 
 
 
@@ -175,7 +183,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
             }
+            makeCall();
 
 
         });
@@ -188,21 +198,29 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.use:
                         item.setChecked(true);
-                        drawerLayout.closeDrawers();
                         return true;
 
                     case R.id.stories:
                         item.setChecked(true);
                         Intent i2 = new Intent(MainActivity.this, Stories.class);
                         startActivity(i2);
-                        drawerLayout.closeDrawers();
                         return true;
 
                     case R.id.safety:
                         item.setChecked(true);
                         Intent i3 = new Intent(MainActivity.this, Safety.class);
                         startActivity(i3);
-                        drawerLayout.closeDrawers();
+                        return true;
+
+                    case R.id.register:
+                        item.setChecked(true);
+                        Intent i4 = new Intent(MainActivity.this, Contacts.class);
+                        startActivity(i4);
+                        return true;
+
+                    case R.id.contactmenu:
+                        item.setChecked(true);
+                        contactmenu();
                         return true;
 
                 }
@@ -224,6 +242,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void contactmenu() {
+
+        Cursor res = myDb.getAllData();
+        if (res.getCount() == 0) {
+            // show message
+            showMessage("Error", "Nothing found");
+            return;
+        }
+        else{
+
+            res.moveToFirst();
+
+            num1 = res.getString(1);
+            num2 = res.getString(2);
+            num3 = res.getString(3);
+            num4 = res.getString(4);
+            num5 = res.getString(5);
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        do {
+
+            buffer.append("PERSON 1 :" +"\n\t\t"+ res.getString(1) + "\n\n");
+            buffer.append("PERSON 2 :" +"\n\t\t"+ res.getString(2) + "\n\n");
+            buffer.append("PERSON 3 :" +"\n\t\t"+ res.getString(3) + "\n\n");
+            buffer.append("PERSON 4 :" +"\n\t\t"+ res.getString(4) + "\n\n");
+            buffer.append("PERSON 5 :" +"\n\t\t"+ res.getString(5) + "\n\n");
+        }while (res.moveToNext());
+
+        // Show all data
+        showMessage("CONTACTS", buffer.toString());
 
     }
 

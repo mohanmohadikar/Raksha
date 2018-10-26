@@ -17,4 +17,11 @@
     <string name="main1">Are you in trouble?</string>
     <string name="main2">Are you being followed?</string>
     <string name="main3">eve teased? harassed?</string>
+    <string name="name">Name</string>
+    <string name="register">Register</string>
+    <string name="getting_started_with_this_app">Getting started with this app</string>
+    <string name="safety_tips">Safety tips</string>
+    <string name="positive_stories">Positive stories</string>
+    <string name="savecon">Update contacts</string>
+    <string name="stop">Stop</string>
 </resources>
