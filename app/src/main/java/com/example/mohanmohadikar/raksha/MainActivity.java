@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button stop,scream, cl,alert;
 
 
-    private String message = "this is testing ";
+    private String message = "THIS IS TESTING ";
     private String num = "9545319111";
     String num1,num2,num3,num4,num5;
 
@@ -147,45 +147,50 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, MyPermission);
             } else {
                 getLocation(v);
-                LOCATE = LATTI + " " + LONGI;
+                LOCATE = LATTI + "," + LONGI;
                 SmsManager sms = SmsManager.getDefault();
+
+
+                getContacts();
 
                 if(isEmptyString(num1) && isEmptyString(num2) && isEmptyString(num3) && isEmptyString(num4) && isEmptyString(num5)){
 
+
+                    Intent i = new Intent(MainActivity.this, Contacts.class);
+                    startActivity(i);
                     Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                 }
                 else {
 
 
+
+
+
                     if (num1 != null && num1 != "Contact number not updated") {
-                        sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                        sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
                     }
                     if (num2 != null && num2 != "Contact number not updated") {
-                        sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                        sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
                     }
                     if (num3 != null && num3 != "Contact number not updated") {
-                        sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                        sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
                     }
                     if (num4 != null && num4 != "Contact number not updated") {
-                        sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                        sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
                     }
                     if (num5 != null && num5 != "Contact number not updated") {
-                        sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+LOCATE, null, null);
+                        sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
                     }
 
 
                     Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                    makeCall();
 
                 }
 
 
-
-
-
-
-
             }
-            makeCall();
+
 
 
         });
@@ -225,10 +230,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-
-
-
-
                 return false;
             }
         });
@@ -244,6 +245,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void getContacts() {
+
+        Cursor res = myDb.getAllData();
+        if (res.getCount() == 0) {
+            return;
+        }
+        else{
+
+            res.moveToFirst();
+
+            num1 = res.getString(1);
+            num2 = res.getString(2);
+            num3 = res.getString(3);
+            num4 = res.getString(4);
+            num5 = res.getString(5);
+        }
+
+
+    }
+
+
 
     private void contactmenu() {
 
