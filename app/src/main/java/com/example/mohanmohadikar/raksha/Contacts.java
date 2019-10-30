@@ -51,11 +51,9 @@ public class Contacts extends AppCompatActivity {
                                     l4.getEditText().getText().toString(),
                                     l5.getEditText().getText().toString());
                             if(isInserted == true)
-                                Toast.makeText(Contacts.this,"Data Update",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Contacts.this,"CONTACTS UPDATED",Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(Contacts.this,"Data not Updated",Toast.LENGTH_LONG).show();
-
-
+                                Toast.makeText(Contacts.this,"CONTACTS NOT UPDATED",Toast.LENGTH_LONG).show();
                         }
                         else{
 
@@ -65,15 +63,11 @@ public class Contacts extends AppCompatActivity {
                                     l4.getEditText().getText().toString(),
                                     l5.getEditText().getText().toString());
                             if(isUpdated == true)
-                                Toast.makeText(Contacts.this,"Data Update",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Contacts.this,"CONTACTS UPDATED",Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(Contacts.this,"Data not Updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Contacts.this,"CONTACTS NOT UPDATED",Toast.LENGTH_LONG).show();
 
                         }
-
-
-
-
                     }
                 }
         );

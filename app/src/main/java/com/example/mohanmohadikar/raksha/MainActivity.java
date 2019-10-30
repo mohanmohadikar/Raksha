@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GpsTracker gpsTracker;
 
-    int MyPermission = 1;
+    int MyPermission = 1, PICK_CONTACT  = 100;
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -71,50 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         myaudio = MediaPlayer.create(MainActivity.this, R.raw.anushree);
-
-
-/*
-
-        cl.setOnClickListener(v -> {
-
-
-            Cursor res = myDb.getAllData();
-            if (res.getCount() == 0) {
-                // show message
-                showMessage("Error", "Nothing found");
-                return;
-            }
-            else{
-
-                res.moveToFirst();
-
-                num1 = res.getString(1);
-                num2 = res.getString(2);
-                num3 = res.getString(3);
-                num4 = res.getString(4);
-                num5 = res.getString(5);
-            }
-
-            StringBuffer buffer = new StringBuffer();
-            do {
-
-                buffer.append("PERSON 1 :" +"\n\t\t"+ res.getString(1) + "\n\n");
-                buffer.append("PERSON 2 :" +"\n\t\t"+ res.getString(2) + "\n\n");
-                buffer.append("PERSON 3 :" +"\n\t\t"+ res.getString(3) + "\n\n");
-                buffer.append("PERSON 4 :" +"\n\t\t"+ res.getString(4) + "\n\n");
-                buffer.append("PERSON 5 :" +"\n\t\t"+ res.getString(5) + "\n\n");
-            }while (res.moveToNext());
-
-            // Show all data
-            showMessage("CONTACTS", buffer.toString());
-
-
-        });*/
-
-
-
-
-
 
 
 
@@ -156,32 +113,17 @@ public class MainActivity extends AppCompatActivity {
                 if(isEmptyString(num1) && isEmptyString(num2) && isEmptyString(num3) && isEmptyString(num4) && isEmptyString(num5)){
 
 
-                    Intent i = new Intent(MainActivity.this, Contacts.class);
+                    Intent i = new Intent(MainActivity.this, ContactInfo.class);
                     startActivity(i);
                     Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                 }
                 else {
 
-
-
-
-
-                    if (num1 != null && num1 != "Contact number not updated") {
-                        sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    }
-                    if (num2 != null && num2 != "Contact number not updated") {
-                        sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    }
-                    if (num3 != null && num3 != "Contact number not updated") {
-                        sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    }
-                    if (num4 != null && num4 != "Contact number not updated") {
-                        sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    }
-                    if (num5 != null && num5 != "Contact number not updated") {
-                        sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    }
-
+                    sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
 
                     Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                     makeCall();
@@ -219,8 +161,22 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.register:
                         item.setChecked(true);
-                        Intent i4 = new Intent(MainActivity.this, Contacts.class);
+
+                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, MyPermission);
+                        }
+
+
+                       // Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                       // startActivityForResult(intent, PICK_CONTACT);
+
+
+                        Intent i4 = new Intent(MainActivity.this, ContactInfo.class);
                         startActivity(i4);
+
+                       // Intent i4 = new Intent(MainActivity.this, Contacts.class);
+                       // startActivity(i4);
                         return true;
 
                     case R.id.contactmenu:
@@ -351,4 +307,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_CONTACT) {
+            if (resultCode == RESULT_OK) {
+                Uri contactData = data.getData();
+                String number = "";
+                Cursor cursor = getContentResolver().query(contactData, null, null, null, null);
+                cursor.moveToFirst();
+                String hasPhone = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                String contactId = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+
+                System.out.println(contactId+" || "+hasPhone);
+
+                if (hasPhone.equals("1")) {
+                    Cursor phones = getContentResolver().query
+                            (ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                                            + " = " + contactId, null, null);
+                    while (phones.moveToNext()) {
+                        number = phones.getString(phones.getColumnIndex
+                                (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
+                    }
+                    phones.close();
+                    //Do something with number
+                } else {
+                    Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
+                }
+
+                System.out.println(number+" || "+number);
+
+                cursor.close();
+            }
+        }
+    }
 }
+
+
