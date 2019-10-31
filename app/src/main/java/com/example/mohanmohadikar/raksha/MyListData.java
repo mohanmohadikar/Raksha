@@ -5,6 +5,10 @@ public class MyListData{
     private String name;
     private String number;
 
+    public MyListData() {
+
+    }
+
     public MyListData(String name, String number) {
         this.name = name;
         this.number = number;

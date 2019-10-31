@@ -34,7 +34,7 @@ public class Contacts extends AppCompatActivity {
 
         b1= (Button) findViewById(R.id.update);
 
-
+/*
 
         b1.setOnClickListener(
                 new View.OnClickListener() {
@@ -71,5 +71,7 @@ public class Contacts extends AppCompatActivity {
                     }
                 }
         );
+
+        */
     }
 }

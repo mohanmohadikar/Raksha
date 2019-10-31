@@ -10,12 +10,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
-    private MyListData[] listdata;
+    //private MyListData[] listdata;
+    private List<MyListData> listdata;
+
 
     // RecyclerView recyclerView;
-    public MyListAdapter(MyListData[] listdata) {
+    public MyListAdapter(List<MyListData> listdata) {
         this.listdata = listdata;
     }
     @Override
@@ -28,13 +32,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final MyListData myListData = listdata[position];
-        holder.textView1.setText(listdata[position].getName());
-        holder.textView2.setText(listdata[position].getNumber());
+
+        MyListData list = listdata.get(position);
+        holder.textView1.setText(list.getName());
+        holder.textView2.setText(list.getNumber());
+
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"click on item: "+myListData.getName(),Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(),"click on item: ",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -42,7 +48,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return listdata.length;
+        return listdata.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

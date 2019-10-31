@@ -16,11 +16,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Contacts.db";
     public static final String TABLE_NAME = "Contact_table";
     public static final String COL_1 = "ID";
-    public static final String COL_2 = "NUMBER1";
-    public static final String COL_3 = "NUMBER2";
-    public static final String COL_4 = "NUMBER3";
-    public static final String COL_5 = "NUMBER4";
-    public static final String COL_6 = "NUMBER5";
+    public static final String COL_2 = "NAME";
+    public static final String COL_3 = "NUMBER";
+   // public static final String COL_4 = "NUMBER3";
+  //  public static final String COL_5 = "NUMBER4";
+  //  public static final String COL_6 = "NUMBER5";
 
 
     public DatabaseHelper(Context context) {
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NUMBER1 TEXT,NUMBER2 TEXT,NUMBER3 TEXT,NUMBER4 TEXT,NUMBER5 TEXT)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,ID INTEGER, NAME TEXT,NUMBER TEXT)");
     }
 
     @Override
@@ -38,14 +38,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String number1,String number2,String number3,String number4,String number5) {
+    public boolean insertData(int id, String name,String number) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2,number1);
-        contentValues.put(COL_3,number2);
-        contentValues.put(COL_4,number3);
-        contentValues.put(COL_5,number4);
-        contentValues.put(COL_6,number5);
+        contentValues.put(COL_1,id);
+        contentValues.put(COL_2,name);
+        contentValues.put(COL_3,number);
+       // contentValues.put(COL_4,number3);
+       // contentValues.put(COL_5,number4);
+       // contentValues.put(COL_6,number5);
+
 
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
@@ -60,15 +62,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String id,String number1,String number2,String number3,String number4,String number5) {
+    public boolean updateData(String id,String name,String number) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,id);
-        contentValues.put(COL_2,number1);
-        contentValues.put(COL_3,number2);
-        contentValues.put(COL_4,number3);
-        contentValues.put(COL_5,number4);
-        contentValues.put(COL_6,number5);
+        contentValues.put(COL_2,name);
+        contentValues.put(COL_3,number);
+    //    contentValues.put(COL_4,number3);
+    //    contentValues.put(COL_5,number4);
+    //    contentValues.put(COL_6,number5);
 
 
         db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
