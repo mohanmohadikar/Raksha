@@ -22,7 +22,6 @@ public class Stories extends AppCompatActivity {
 
     }
 
-
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

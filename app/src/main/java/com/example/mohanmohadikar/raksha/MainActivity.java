@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,10 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer myaudio;
 
 
-    private Button stop,scream, cl,alert;
+    private Button stop,scream,alert;
 
 
     private String message = "THIS IS TESTING ";
     private String num = "9545319111";
-    String num1,num2,num3,num4,num5;
+    String num1;
 
     String LOCATE, LATTI, LONGI;
     double latti;
@@ -56,21 +54,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myDb = new DatabaseHelper(this);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView = (NavigationView)findViewById(R.id.navigationview);
-
-
-        myDb = new DatabaseHelper(this);
-
-
-
         alert = (Button) findViewById(R.id.alert);
         stop = (Button) findViewById(R.id.stop);
         scream = (Button) findViewById(R.id.scream);
         mImageview = (ImageView) findViewById(R.id.imageView);
-
-
         myaudio = MediaPlayer.create(MainActivity.this, R.raw.anushree);
 
 
@@ -93,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-
-
         alert.setOnClickListener(v -> {
 
 
@@ -108,33 +96,24 @@ public class MainActivity extends AppCompatActivity {
                 SmsManager sms = SmsManager.getDefault();
 
 
-                getContacts();
+                String[] nums = getContacts();
 
-                if(isEmptyString(num1) && isEmptyString(num2) && isEmptyString(num3) && isEmptyString(num4) && isEmptyString(num5)){
-
-
+                if(nums.length==0){
                     Intent i = new Intent(MainActivity.this, ContactInfo.class);
                     startActivity(i);
                     Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                 }
                 else {
 
-                    sms.sendTextMessage(num1, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    sms.sendTextMessage(num2, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    sms.sendTextMessage(num3, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    sms.sendTextMessage(num4, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
-                    sms.sendTextMessage(num5, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    for(String str:nums){
+                        sms.sendTextMessage(str, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                    }
 
                     Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                     makeCall();
 
                 }
-
-
             }
-
-
-
         });
 
 
@@ -159,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i3);
                         return true;
 
-                    case R.id.register:
+
+                    case R.id.contactmenu:
                         item.setChecked(true);
 
                         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
@@ -167,25 +147,10 @@ public class MainActivity extends AppCompatActivity {
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, MyPermission);
                         }
 
-
-                       // Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                       // startActivityForResult(intent, PICK_CONTACT);
-
-
                         Intent i4 = new Intent(MainActivity.this, ContactInfo.class);
                         startActivity(i4);
-
-                       // Intent i4 = new Intent(MainActivity.this, Contacts.class);
-                       // startActivity(i4);
                         return true;
-
-                    case R.id.contactmenu:
-                        item.setChecked(true);
-                        contactmenu();
-                        return true;
-
                 }
-
                 return false;
             }
         });
@@ -198,74 +163,35 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
 
-    private void getContacts() {
+    private String[] getContacts() {
 
         Cursor res = myDb.getAllData();
+        int size = res.getCount();
+
+        int i=0;
+        String[] Numbers = new String[size];
+        String number;
+
         if (res.getCount() == 0) {
-            return;
+            Toast.makeText(this,"ADD CONTACTS",Toast.LENGTH_LONG).show();
         }
         else{
 
             res.moveToFirst();
+            do {
+                number = res.getString(2);
+                Numbers[i++] = number;
 
-            num1 = res.getString(1);
-            num2 = res.getString(2);
-            num3 = res.getString(3);
-            num4 = res.getString(4);
-            num5 = res.getString(5);
+            }while (res.moveToNext());
         }
-
-
+        return Numbers;
     }
 
 
 
-    private void contactmenu() {
-
-        Cursor res = myDb.getAllData();
-        if (res.getCount() == 0) {
-            // show message
-            showMessage("Error", "Nothing found");
-            return;
-        }
-        else{
-
-            res.moveToFirst();
-
-            num1 = res.getString(1);
-            num2 = res.getString(2);
-            num3 = res.getString(3);
-            num4 = res.getString(4);
-            num5 = res.getString(5);
-        }
-
-        StringBuffer buffer = new StringBuffer();
-        do {
-
-            buffer.append("PERSON 1 :" +"\n\t\t"+ res.getString(1) + "\n\n");
-            buffer.append("PERSON 2 :" +"\n\t\t"+ res.getString(2) + "\n\n");
-            buffer.append("PERSON 3 :" +"\n\t\t"+ res.getString(3) + "\n\n");
-            buffer.append("PERSON 4 :" +"\n\t\t"+ res.getString(4) + "\n\n");
-            buffer.append("PERSON 5 :" +"\n\t\t"+ res.getString(5) + "\n\n");
-        }while (res.moveToNext());
-
-        // Show all data
-        showMessage("CONTACTS", buffer.toString());
-
-    }
-
-    public void showMessage(String title,String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
 
     private void makeCall() {
         if(num.trim().length()>2){
@@ -293,18 +219,6 @@ public class MainActivity extends AppCompatActivity {
             gpsTracker.showSettingsAlert();
         }
     }
-
-
-    public static boolean isEmptyString(String text) {
-        return (text == null || text.trim().equals("null") || text.trim()
-                .length() <= 0);
-    }
-
-    public void displayMessage(String Message){
-        Toast.makeText(MainActivity.this,Message,Toast.LENGTH_LONG).show();
-    }
-
-
 
 
     @Override
@@ -335,8 +249,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
                 }
-
-                System.out.println(number+" || "+number);
 
                 cursor.close();
             }

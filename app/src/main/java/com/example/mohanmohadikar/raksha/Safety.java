@@ -20,8 +20,6 @@ public class Safety extends AppCompatActivity {
         brow.loadUrl("https://issuesiface.com/magazine/top-10-safety-tips-for-women");
     }
 
-
-
     private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

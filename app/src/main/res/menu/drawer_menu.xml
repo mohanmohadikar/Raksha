@@ -8,13 +8,9 @@
             android:icon="@drawable/getstart"
             android:title="@string/getting_started_with_this_app"/>
         <item
-                android:id="@+id/register"
-                android:icon="@drawable/registericon"
-                android:title="@string/register"/>
-        <item
-                android:id="@+id/contactmenu"
-                android:icon="@drawable/personr"
-                android:title="Contacts"/>
+            android:id="@+id/contactmenu"
+            android:icon="@drawable/personr"
+            android:title="Contacts"/>
         <item
             android:id="@+id/stories"
             android:icon="@drawable/positive"
