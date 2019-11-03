@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer myaudio;
 
 
-    private Button stop,scream,alert;
+    private Button alert;
 
 
     private String message = "THIS IS TESTING ";
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private ImageView mImageview;
+    private ImageView mImageview, stop,scream;
 
 
     @Override
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView = (NavigationView)findViewById(R.id.navigationview);
         alert = (Button) findViewById(R.id.alert);
-        stop = (Button) findViewById(R.id.stop);
-        scream = (Button) findViewById(R.id.scream);
+        stop = (ImageView) findViewById(R.id.stop);
+        scream = (ImageView) findViewById(R.id.scream);
         mImageview = (ImageView) findViewById(R.id.imageView);
         myaudio = MediaPlayer.create(MainActivity.this, R.raw.anushree);
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         stop.setOnClickListener(v->{
 
 
-            myaudio.stop();
+            myaudio.pause();
             stop.setVisibility(v.INVISIBLE);
             scream.setVisibility(v.VISIBLE);
 

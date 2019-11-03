@@ -7,11 +7,31 @@
     android:orientation="vertical"
     tools:context=".ContactInfo">
 
-    <Button
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add"
-        android:text="add"/>
+        android:background="#ffffff">
+
+        <Button
+
+            android:fontFamily="serif-monospace"
+            android:textAllCaps="false"
+            android:textColor="#01B0FF"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/add"
+            android:background="@drawable/addbutton"
+            android:text="Add"/>
+
+    </LinearLayout>
+
+
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

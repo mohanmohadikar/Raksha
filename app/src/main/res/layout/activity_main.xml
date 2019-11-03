@@ -6,7 +6,7 @@
                                         android:layout_height="match_parent"
                                         android:id="@+id/drawer_layout"
                                         android:fitsSystemWindows="true"
-                                        android:background="@drawable/womanalone1"
+                                        android:background="#ffffff"
                                         tools:context="com.example.mohanmohadikar.raksha.MainActivity">
 
 
@@ -20,7 +20,7 @@
                 android:layout_width="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/test"
+                app:srcCompat="@drawable/hamb"
                 android:id="@+id/imageView"/>
 
 
@@ -30,18 +30,18 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="35sp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:id="@+id/textView"/>
         <TextView
                 android:text="@string/main2"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="35sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView3"/>
@@ -49,57 +49,61 @@
                 android:text="@string/main3"
                 android:fontFamily="cursive"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="35sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView4"/>
-        <Button
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/scream"
+
+                android:layout_below="@+id/alert"
+                android:src="@drawable/play"
+                android:layout_centerInParent="true"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
                 android:id="@+id/alert"
 
-                android:text="@string/i_m_in_danger"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/contact"
                 android:fontFamily="cursive"
+                android:text="@string/i_m_in_danger"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
                 android:textSize="25sp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:background="@drawable/contact"
-        />
+                android:textStyle="bold" />
 
-        <Button
-                android:id="@+id/scream"
+            <ImageView
 
-                android:text="@string/scream"
-                android:fontFamily="cursive"
-                android:textAllCaps="false"
-                android:textColor="@color/screambutt"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:background="@drawable/scream"
-        />
-        <Button
+                android:id="@+id/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/alert"
+                android:src="@drawable/stop"
 
-                android:text="@string/stop"
-                android:fontFamily="cursive"
-                android:textAllCaps="false"
-                android:textColor="@color/screambutt"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                android:background="@drawable/scream"
-                android:id="@+id/stop"/>
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
 
 
     </LinearLayout>

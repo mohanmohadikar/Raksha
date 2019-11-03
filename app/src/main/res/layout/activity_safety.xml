@@ -12,6 +12,6 @@
               android:id="@+id/webviewSafety"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-    />
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
