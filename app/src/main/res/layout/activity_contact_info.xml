@@ -4,32 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#111111"
     android:orientation="vertical"
     tools:context=".ContactInfo">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff">
+        android:background="#000000">
 
-        <Button
-
-            android:fontFamily="serif-monospace"
-            android:textAllCaps="false"
-            android:textColor="#01B0FF"
-            android:textSize="25sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
             android:id="@+id/add"
-            android:background="@drawable/addbutton"
-            android:text="Add"/>
+            android:src="@drawable/addperson"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

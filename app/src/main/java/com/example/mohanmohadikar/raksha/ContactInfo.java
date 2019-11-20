@@ -1,6 +1,7 @@
 package com.example.mohanmohadikar.raksha;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,8 +22,17 @@ import java.util.List;
 
 public class ContactInfo extends AppCompatActivity {
 
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.READ_CONTACTS,
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.CALL_PHONE,
+            android.Manifest.permission.SEND_SMS,
+    };
 
-    private Button add;
+
+    private ImageView add;
     DatabaseHelper myDb;
 
     private static final int PICK_CONTACT = 100;
@@ -38,12 +49,21 @@ public class ContactInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_info);
 
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
+
+
+
+
         myDb = new DatabaseHelper(this);
 
         showContacts();
 
 
-        add = (Button)findViewById(R.id.add);
+        add = (ImageView)findViewById(R.id.add);
 
         add.setOnClickListener(v->{
 
@@ -147,6 +167,18 @@ public class ContactInfo extends AppCompatActivity {
 
         else Toast.makeText(ContactInfo.this, "CONTACTS NOT UPDATED", Toast.LENGTH_LONG).show();
 
+    }
+
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
