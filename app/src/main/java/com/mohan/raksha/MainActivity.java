@@ -1,10 +1,13 @@
-package com.example.mohanmohadikar.raksha;
+package com.mohan.raksha;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,17 +16,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.telephony.SmsManager;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+
+import com.example.mohanmohadikar.raksha.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private SQLiteDatabase mDatabase;
+    DatabaseHelper databaseHelper;
+    private MyListAdapter mAdapter;
+    View v;
 
-    private ImageView add;
+    String del="";
+
+    LinearLayout linearLayout;
+
+    private ImageView add, menu;
   //  DatabaseHelper myDb;
 
     //private static final int PICK_CONTACT = 100;
@@ -48,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+//btn.setBackgroundColor(Color.TRANSPARENT);
 
 
 
@@ -70,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView alert;
 
+    LinearLayout lin;
+
 
     private String message = "I'm in danger. ";
-    private String num = "9545319111";
+    private String num = "112";
     String num1;
 
     String LOCATE, LATTI, LONGI;
@@ -86,12 +101,42 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ImageView mImageview, stop,scream,send;
+    private static final String FeedbackFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSee3hmp6DSL3tLm9ZLSzcMO3PKYXQ04-BtwVncTV4P-LPlBQQ/viewform?usp=sf_link";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
+
+        databaseHelper = new DatabaseHelper(this);
+        mDatabase = databaseHelper.getWritableDatabase();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mAdapter = new MyListAdapter(this, getAllItems());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+                deleteContact((long) viewHolder.itemView.getTag());
+
+
+            }
+        }).attachToRecyclerView(recyclerView);
 
 
 
@@ -110,12 +155,16 @@ public class MainActivity extends AppCompatActivity {
         stop = (ImageView) findViewById(R.id.stop);
         scream = (ImageView) findViewById(R.id.scream);
         send = (ImageView) findViewById(R.id.send);
+        linearLayout = (LinearLayout)findViewById(R.id.relativeLayout);
+      //  menu = (ImageView) findViewById(R.id.menu);
         myaudio = MediaPlayer.create(MainActivity.this, R.raw.anushree);
 
 
 
 
-        showContacts();
+
+
+//        showContacts();
 
         scream.setOnClickListener(v->{
 
@@ -138,33 +187,58 @@ public class MainActivity extends AppCompatActivity {
         alert.setOnClickListener(v -> {
 
 
-            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, MyPermission);
-            } else {
-                getLocation(v);
-                LOCATE = LATTI + "," + LONGI;
-                SmsManager sms = SmsManager.getDefault();
 
 
-                String[] nums = getContacts();
+            if(hasPermissions(this, PERMISSIONS)){
 
-                if(nums.length==0){
-                    Intent i = new Intent(MainActivity.this, ContactInfo.class);
-                    startActivity(i);
-                    Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
-                }
-                else {
 
-                    for(String str:nums){
-                        sms.sendTextMessage(str, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+
+
+
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, MyPermission);
+                } else {
+                    getLocation(v);
+                    LOCATE = LATTI + "," + LONGI;
+                    SmsManager sms = SmsManager.getDefault();
+
+
+                    String[] nums = getContacts();
+
+                    //String[] nums = {"1"};
+
+                    if(nums.length==0){
+                        Toast.makeText(MainActivity.this, "UPDATE YOUR CONTACTLIST ", Toast.LENGTH_LONG).show();
                     }
+                    else {
 
-                    Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
-                    makeCall();
+                        for(String str:nums){
+                            sms.sendTextMessage(str, null, message+" "+"Search my location on Google Maps: "+ "http://maps.google.com/maps?q="+LOCATE, null, null);
+                        }
 
+                        Toast.makeText(MainActivity.this, "MESSAGE SENT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                        makeCall();
+
+                    }
                 }
+
+
+
+
             }
+            else{
+                Toast.makeText(this, "Allow permissions", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+            }
+
+
+
+
+
+
+
+
         });
         
 
@@ -182,34 +256,75 @@ public class MainActivity extends AppCompatActivity {
         add.setOnClickListener(v->{
 
 
-            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, MyPermission);
+            if(hasPermissions(this, PERMISSIONS)){
+
+
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, MyPermission);
+                }
+
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT2);
+
+
+            }
+            else{
+                Toast.makeText(this, "Allow permissions", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
             }
 
-            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, PICK_CONTACT2);
+
+
+
         });
 
 
         send.setOnClickListener(v->{
-            shareButton();
+
+            if(hasPermissions(this, PERMISSIONS)){
+
+               // myDb.deleteData("1");
+               // refresh();
+
+
+                shareButton();
+
+
+            }
+            else{
+                Toast.makeText(this, "Allow permissions", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+            }
+
+
+
+
+
         });
 
 
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        MyListAdapter adapter = new MyListAdapter(list);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+
+
+
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        myaudio.pause();
+        stop.setVisibility(v.INVISIBLE);
+        scream.setVisibility(v.VISIBLE);
+
+    }
+
     private String[] getContacts() {
 
-        Cursor res = myDb.getAllData();
+        Cursor res = databaseHelper.getAllData();
         int size = res.getCount();
 
         int i=0;
@@ -300,6 +415,8 @@ public class MainActivity extends AppCompatActivity {
                         number = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
                     }
+
+
                     phones.close();
                     //Do something with number
                 } else {
@@ -363,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "THIS CONTACT HAS NO PHONE NUMBER", Toast.LENGTH_LONG).show();
                 }
 
-                insert(name, number);
+                addContact(name, number);
                 cursor.close();
             }
             refresh();
@@ -433,7 +550,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+/*
 
 
     private void showContacts() {
@@ -459,9 +576,9 @@ public class MainActivity extends AppCompatActivity {
         }while (res.moveToNext());
     }
 
+*/
 
-
-
+/*
     private void insert(String name, String number) {
 
 
@@ -479,7 +596,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+*/
 
 
     public void refresh(){
@@ -500,6 +617,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void addContact(String name, String number){
+        ContentValues cv = new ContentValues();
+        cv.put(DatabaseContracts.ContactsEntry.COLUMN_NAME, name);
+        cv.put(DatabaseContracts.ContactsEntry.COLUMN_NUMBER, number);
+
+
+        mDatabase.insert(DatabaseContracts.ContactsEntry.TABLE_NAME, null, cv);
+        mAdapter.swapCursor(getAllItems());
+
+    }
+
+
+    private Cursor getAllItems(){
+        return mDatabase.query(
+                DatabaseContracts.ContactsEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                DatabaseContracts.ContactsEntry.COLUMN_NAME + " ASC"
+        );
+    }
+
+    private void deleteContact(long id){
+        mDatabase.delete(DatabaseContracts.ContactsEntry.TABLE_NAME,
+                DatabaseContracts.ContactsEntry._ID + "=" + id, null);
+        mAdapter.swapCursor(getAllItems());
+    }
 
 }
 

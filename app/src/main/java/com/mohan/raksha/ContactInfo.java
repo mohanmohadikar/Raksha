@@ -1,4 +1,4 @@
-package com.example.mohanmohadikar.raksha;
+package com.mohan.raksha;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,9 +13,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.mohanmohadikar.raksha.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class ContactInfo extends AppCompatActivity {
 
         myDb = new DatabaseHelper(this);
 
-        showContacts();
+//        showContacts();
 
 
         add = (ImageView)findViewById(R.id.add);
@@ -80,10 +81,10 @@ public class ContactInfo extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        MyListAdapter adapter = new MyListAdapter(list);
+//        MyListAdapter adapter = new MyListAdapter(list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+//        recyclerView.setAdapter(adapter);
     }
 
 
@@ -118,13 +119,13 @@ public class ContactInfo extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "THIS CONTACT HAS NO PHONE NUMBER", Toast.LENGTH_LONG).show();
                 }
 
-                insert(name, number);
+               // insert(name, number);
                 cursor.close();
             }
         }
     }
 
-
+/*
 
     private void showContacts() {
 
@@ -149,7 +150,7 @@ public class ContactInfo extends AppCompatActivity {
         }while (res.moveToNext());
     }
 
-
+/*
 
 
     private void insert(String name, String number) {
@@ -168,7 +169,7 @@ public class ContactInfo extends AppCompatActivity {
         else Toast.makeText(ContactInfo.this, "CONTACTS NOT UPDATED", Toast.LENGTH_LONG).show();
 
     }
-
+*/
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -182,3 +183,7 @@ public class ContactInfo extends AppCompatActivity {
     }
 
 }
+
+
+
+

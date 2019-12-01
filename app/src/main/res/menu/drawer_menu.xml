@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/use"
-            android:icon="@drawable/getstart"
-            android:title="@string/getting_started_with_this_app"/>
-        <item
-            android:id="@+id/contactmenu"
-            android:icon="@drawable/personr"
-            android:title="Contacts"/>
-        <item
-            android:id="@+id/stories"
-            android:icon="@drawable/positive"
-            android:title="@string/positive_stories"/>
-        <item
-            android:id="@+id/safety"
-            android:icon="@drawable/safety"
-            android:title="@string/safety_tips"/>
 
 
-    </group>
+
+    <item
+        android:id="@+id/about"
+        android:title="About"/>
+    <item
+        android:id="@+id/feedback"
+        android:title="Feedback"/>
 
 </menu>

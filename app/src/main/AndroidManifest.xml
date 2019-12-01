@@ -6,11 +6,8 @@
 
     <uses-feature android:name="android.hardware.location.gps" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -23,16 +20,17 @@
         android:roundIcon="@drawable/rakshalogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactInfo"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mohan.raksha.About"></activity>
+        <activity android:name="com.mohan.raksha.ContactInfo" />
+        <activity android:name="com.mohan.raksha.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Stories"></activity>
-        <activity android:name=".Safety"></activity>
+        <activity android:name="com.mohan.raksha.Stories" />
+        <activity android:name="com.mohan.raksha.Safety" />
     </application>
 
 </manifest>

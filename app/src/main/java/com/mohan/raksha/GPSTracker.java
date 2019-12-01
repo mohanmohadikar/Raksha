@@ -3,7 +3,7 @@
  */
 
 
-package com.example.mohanmohadikar.raksha;
+package com.mohan.raksha;
 
 import android.Manifest;
 import android.app.Activity;

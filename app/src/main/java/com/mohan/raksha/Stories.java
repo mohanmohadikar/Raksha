@@ -1,9 +1,11 @@
-package com.example.mohanmohadikar.raksha;
+package com.mohan.raksha;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.mohanmohadikar.raksha.R;
 
 public class Stories extends AppCompatActivity {
 
