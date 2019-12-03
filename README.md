@@ -14,7 +14,7 @@ Android based application for Safety of an individual in India.
 </p>
 
 
-## WHY AN MOBILE APP?
+## WHY MOBILE APP ?
 
 
 #### In today's world, people using smart phones have increased rapidly and hence, a smart phone can be used efficiently for personal security or various other protection purposes.
