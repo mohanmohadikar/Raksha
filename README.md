@@ -1,17 +1,6 @@
 
 # Raksha - A security and SOS app
-Android based application for Safety of an individual in India.
 
-  In today's world, people using smart phones have increased rapidly and hence, a smart phone can be used efficiently for personal security or various other protection purposes.
-
-
-
-
-<p align="start">
-  <a href="https://play.google.com/store/apps/details?id=com.mohan.raksha">
-  <img src="https://images.squarespace-cdn.com/content/v1/5c7d3ddb8d9740304876381e/1555187096213-AC46USTOFK2TQQ4HZUQY/ke17ZwdGBToddI8pDm48kIH0_qySXl3-YfrFnf87-3tZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxJc6MhdK26BmO1kxPJWeBBallpt-3-DXECDksCuJy0ie4ASU6dQ7LbCSjUJOYkHpI/playstore.png" width="200" title="hover text">
-  
-</p>
 
 
 ## WHY MOBILE APP ?
@@ -36,6 +25,41 @@ Android based application for Safety of an individual in India.
 #### We added an feature in it for the people WHO CAN'T SPEAK. It starts shouting for help from surroundings.
 
 #### If user wants to notify their dear ones about their location apart from SMS, they can share it through many different platforms(eg. WhatsApp , Instagram, Facebook, Email, etc) in a SINGLE CLICK.
+
+
+<p align="start">
+  <a href="https://play.google.com/store/apps/details?id=com.mohan.raksha">
+  <img src="https://images.squarespace-cdn.com/content/v1/5c7d3ddb8d9740304876381e/1555187096213-AC46USTOFK2TQQ4HZUQY/ke17ZwdGBToddI8pDm48kIH0_qySXl3-YfrFnf87-3tZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxJc6MhdK26BmO1kxPJWeBBallpt-3-DXECDksCuJy0ie4ASU6dQ7LbCSjUJOYkHpI/playstore.png" width="200" title="hover text">
+  
+</p>
+
+## Screenshots
+
+<p align="start">
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001250.jpg" width="350" title="hover text">
+  
+</p>
+
+
+<p>
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001459.jpg" width="350" title="hover text">
+  
+</p>
+<p>
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001513.jpg" width="350" title="hover text">
+  
+</p>
+<p>
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001603.jpg" width="350" title="hover text">
+  
+</p>
+<p>
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_002026_832.jpg" width="350" title="hover text">
+  
+</p>
+
+
+
 
 
 ## Contributing
