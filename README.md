@@ -14,6 +14,30 @@ Android based application for Safety of an individual in India.
 </p>
 
 
+## WHY AN MOBILE APP?
+
+
+#### In today's world, people using smart phones have increased rapidly and hence, a smart phone can be used efficiently for personal security or various other protection purposes.
+
+
+
+
+## WHY TO USE THIS APP ?
+
+
+#### The name of the application is “Raksha”. An individual equipped with the app will never feel alone and unsafe whenever they set out of their homes. 
+
+#### Whenever an individual feels insecure, this app can be activated by a single click. 
+
+#### A single click on this app identifies the location of the user through GPS and sends a message containing the location to the registered contacts and also a call to the first "112" which is an emergency number to help the one in a dangerous situation. 
+
+#### The app sends the message to the registered contacts.
+
+#### We added an feature in it for the people WHO CAN'T SPEAK. It starts shouting for help from surroundings.
+
+#### If user wants to notify their dear ones about their location apart from SMS, they can share it through many different platforms(eg. WhatsApp , Instagram, Facebook, Email, etc) in a SINGLE CLICK.
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
