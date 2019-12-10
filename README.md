@@ -36,17 +36,17 @@
 ## Screenshots
 
 <p align="start">
-  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001250.jpg" width="350" title="hover text">
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/Screenshot_20191210-210249.png" width="350" title="hover text">
   
 </p>
 
 
 <p>
-  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001459.jpg" width="350" title="hover text">
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/Screenshot_20191210-210308%20(1).png" width="350" title="hover text">
   
 </p>
 <p>
-  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/IMG_20191204_001513.jpg" width="350" title="hover text">
+  <img src="https://github.com/mohanmohadikar/Raksha/blob/master/Screenshot_20191210-210410%20(2).png" width="350" title="hover text">
   
 </p>
 <p>
